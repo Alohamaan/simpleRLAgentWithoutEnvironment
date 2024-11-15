@@ -91,7 +91,6 @@ class SomeEnv:
                 print('Нет такого актива!')
                 done = True
                 reward = -150
-                done = False
 
         elif action == 'hold':
             reward = 100
