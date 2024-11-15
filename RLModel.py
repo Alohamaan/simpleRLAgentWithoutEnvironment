@@ -29,7 +29,7 @@ class SomeEnv:
 
         pass
 
-    def buy(self, typeOfDeal, amount):
+    def buy(self, typeOfDeal, amount, activeName):
         """Buys a given amount of an active."""
 
         pass
@@ -55,7 +55,7 @@ class SomeEnv:
             action = random.choice(self.actions.keys())
 
         self.actions[action]()
-        self.state, self.reward, self.done = self.evaluateAction(action, dealType)
+        self.state, self.reward, self.done = self.evaluateAction(action, dealType, activeName, amount)
 
         return self.state, self.reward, self.done
 
@@ -65,9 +65,8 @@ class SomeEnv:
         done = False
         previousOpenedDeals = {x[1] for x in openedDealsKeys if x[0] == activeName}
 
-        if ((action == 'buy' and dealType == 'short' and 'long' not in previousOpenedDeals and amount == self.openedDeals[(activeName,'sell')])
-                or (dealType == 'long' and action == 'buy' and 'short' not in previousOpenedDeals)):
-
+        if ((action == 'buy' and dealType == 'short' and 'long' not in previousOpenedDeals)
+                or (dealType == 'long' and action == 'buy' and 'short' not in previousOpenedDeals)) and amount == self.openedDeals[(activeName,'sell')]:
             #закрываем short или открываем long
 
             if (activeName, dealType) not in openedDealsKeys:
@@ -75,8 +74,6 @@ class SomeEnv:
                 reward = 150 if dealType == 'short' else 100
             else:
                 self.openedDeals[(activeName, dealType)] += amount
-
-
 
         elif ((action == 'sell' and dealType == 'short')
                 or (dealType == 'long' and action == 'sell' and 'short' not in previousOpenedDeals)):
