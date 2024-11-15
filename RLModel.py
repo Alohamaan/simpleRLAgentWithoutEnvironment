@@ -94,7 +94,7 @@ class SomeEnv:
                 done = False
 
         elif action == 'hold':
-            reward = 0
+            reward = 100
 
         else:
             #так как отработали все варианты, за которые надо награждать
