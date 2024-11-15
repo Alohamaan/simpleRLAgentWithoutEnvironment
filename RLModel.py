@@ -86,7 +86,6 @@ class SomeEnv:
                 #это можно сделать через условие, но так отработает быстрее
                 del self.openedDeals[(activeName, dealType)]
                 reward = 150 if dealType == 'long' else 100
-                done = True
             except KeyError:
                 print('Нет такого актива!')
                 done = True
